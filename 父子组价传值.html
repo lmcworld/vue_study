@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>父子组件传值</title>
+	<script src='./vue.js'></script>
+</head>
+<body>
+	<div id = 'root'>
+		<counter :count = "0" @change="handChange"></counter>
+		<counter :count = "1" @change="handChange"></counter>
+		<div>
+			{{total}}
+		</div>
+	</div>
+	<script>
+		var counter = {
+			props: ['count'],
+			template: '<div @click="handDivClick">{{number}}</div>',
+			data:function(){
+				return{
+					number: this.count
+				}
+			},
+			methods:{
+				handDivClick:function(){
+					this.number ++;
+					this.$emit('change',1)
+					//子组件通过事件监听的方式向父组件传值。每次执行handDivClick函数触发change事件，@change监听事件并触发handChange。
+				}
+			}
+		}
+		var vm = new Vue({
+			el: '#root',
+			data: {
+				total: 1
+			},
+			components: {
+				counter: counter
+			},
+			methods:{
+				handChange:function(step){
+					this.total += step
+				}
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>hello world</title>
+	<script src="/tool/vue.js"></script>
+</head>
+<body>
+	<div id="root">
+	标题：<input type="text" v-model="list.title"/>
+	用户：<input type="text" v-model="list.user"/>
+	时间：<input type="text" v-model="list.date"/>
+	<button v-on:click="handleSubmit">提交</button>
+	<table>
+		<tbody>
+			<tr  v-for = "item in list1">
+				<td>{{item.title}}</td>
+				<td>{{item.user}}</td>
+				<td>{{item.date}}</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	<script>
+	var vm=new Vue({
+		el:"#root",
+		data:{
+			list:{title:"",
+				user:"",
+				date:""},
+			list1:[]
+		},
+		methods:{
+			handleSubmit:function(){
+				console.log(this.list1);
+				console.log(this.list);
+				this.list1.push({
+				title:this.list.title,
+				user:this.list.user,
+				date:this.list.date
+				});
+				
+
+
+			}
+		}
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>组件使用中的细节点</title>
+	<script src="./vue.js"></script>
+</head>
+<body>
+	<div id = 'vm'>
+		<div>
+			<counter ref='one' @change="handDivChange"></counter>
+			<counter ref='two' @change="handDivChange"></counter>
+			<div>{{total}}</div>
+		</div>
+	</div>
+	<script>
+	Vue.component('counter', {
+		template: '<div @click="handDivClick">{{number}}</div>',
+		data:function(){
+			return{
+				number : 0
+			}
+		},
+		methods:{
+			handDivClick:function(){
+				this.number ++
+				this.$emit('change')
+			}
+		}
+	})
+	var vm = new Vue({
+		el: '#vm',
+		data:{
+			total: 0,
+		},
+		methods:{
+			handDivChange:function(){
+				console.log(this.$refs.one.number)
+				console.log(this.$refs.two.number)
+				this.total = this.$refs.one.number + this.$refs.two.number
+			}
+		}
+	})
+	</script>
+</body>
+</html>

@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>hello world</title>
-	<script src="/tool/vue.js"></script>
+	<script src="./vue.js"></script>
 </head>
 <body>
 	<div id="root">
@@ -12,16 +12,41 @@
 	用户：<input type="text" v-model="list.user"/>
 	时间：<input type="text" v-model="list.date"/>
 	<button v-on:click="handleSubmit">提交</button>
+	<div>
+	</br>
+	</div>
 	<table>
 		<tbody>
-			<tr  v-for = "item in list1">
+			<tr>
+				<th>序号</th>
+				<th>标题</th>
+				<th>用户</th>
+				<th>时间</th>
+				<th windth="%20">选项</th>
+			</tr>
+			<tr  v-for = "(item,index) in list1">
+				<td>{{index+1}}</td>
 				<td>{{item.title}}</td>
 				<td>{{item.user}}</td>
 				<td>{{item.date}}</td>
+				<td><button width="%5" v-on:click="handleDelete(index)">删除</button><button  width="%5" v-on:click="handleEdit(index)">编辑</button></td>
 			</tr>
 		</tbody>
 	</table>
 	</div>
+	<style>
+		td,th
+		{
+			border:1px solid black;
+			text-align:center;
+		}
+		table {
+    		border-collapse: collapse;
+			width:100%;
+			height:20px;
+			border:1px solid black;
+		}
+	</style>
 	<script>
 	var vm=new Vue({
 		el:"#root",
@@ -33,16 +58,17 @@
 		},
 		methods:{
 			handleSubmit:function(){
-				console.log(this.list1);
-				console.log(this.list);
-				this.list1.push({
-				title:this.list.title,
-				user:this.list.user,
-				date:this.list.date
+				//console.log(this.list1);
+				//console.log(this.list);
+					this.list1.push({
+					title:this.list.title,
+					user:this.list.user,
+					date:this.list.date
 				});
-				
-
-
+			},
+			handleDelete:function(index){
+				console.log(index);
+				this.list1.splice(index,1)
 			}
 		}
 	})
